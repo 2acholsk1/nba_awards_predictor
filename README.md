@@ -9,23 +9,25 @@ Firstly make sure you have Python on your system
 
 Next, clone this repository:
 ```bash
-$ git clone https://github.com/2acholsk1/nba_awards_predictor.git
+git clone https://github.com/2acholsk1/nba_awards_predictor.git
+cd nba_award_predictor
 ```
 
-After that, you need to setup environment with the help of Makefile:
+After that, you need to setup virtual environment with the help of Makefile:
 ```bash
-$ make setup-venv
+make setup-venv
 ```
-which setup virtualenvironment, then building and installing package:
+Remember to activate venv with command: 'source bin/activate'
+then you can build and install package:
 ```bash
-$ make setup
+make setup
 ```
 
 ## Running
 
 To run the prediction, use command:
 ```bash
-$ NBA_predict
+NBA_predict
 ```
 
 ## Documentation

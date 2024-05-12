@@ -15,7 +15,6 @@ SRC_DIR := src
 .PHONY setup-venv:
 setup-venv:
 	$(PYTHON) -m venv .
-	source bin/activate
 
 .PHONY: setup
 setup:
