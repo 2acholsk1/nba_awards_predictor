@@ -3,3 +3,5 @@
 /lib
 /lib64
 /build
+/dist
+/NBA_Awards_Predictor.egg-info
