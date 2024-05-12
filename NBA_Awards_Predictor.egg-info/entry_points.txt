@@ -1,3 +1,0 @@
-[console_scripts]
-NBA_predict = src.__main__:main
-
