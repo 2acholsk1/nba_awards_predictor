@@ -40,7 +40,8 @@ setup(
     packages=setuptools.find_packages(),
     entry_points={
         'console_scripts': [
-            'NBA_predict = src.__main__:main'
+            'NBA_predict = src.__main__:main',
+            'data_prepare = src.data_work.prepare_data:main',
         ],
     },
     python_requires='>=3.11',
