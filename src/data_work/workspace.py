@@ -6,11 +6,10 @@ data1 = pd.read_csv("data/raw_data/rs_2005_2006.csv")
 
 result = pd.concat([data, data1], axis='columns')
 # result = result.loc[:, ~result.columns.duplicated()]
-result = result.drop_duplicates()
-
-print(data.head())
-print(data1.head())
-print(result.head())
+result = result.loc[:, ~result.columns.duplicated()]
+# print(data.head())
+# print(data1.head())
+# print(result.head())
 print(data.columns)
 print(data1.columns)
 print(result.columns)

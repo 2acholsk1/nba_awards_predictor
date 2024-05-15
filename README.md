@@ -3,7 +3,14 @@
 ## Main goal
 The goal of the project is to use statistical data to predict the list of players who will receive awards (first, second and third all-nba team, first and second rookie all-nba team) for the regular season. 
 
+## Description
+
 Data downloaded from Basketball-reference site [1](https://www.basketball-reference.com/)
+
+Statistics of players playing in the NBA from the 1999/2000 season to 2023/2024.
+
+Description of shortcuts in data farames - [link](https://github.com/2acholsk1/nba_awards_predictor/tree/main/data/desc_short.md)
+
 
 ## Setup
 
