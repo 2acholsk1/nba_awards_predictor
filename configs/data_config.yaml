@@ -1,0 +1,14 @@
+# Configuration file for data
+
+# Year of start process data
+start_year: 1999
+
+# Year of end process data
+end_year: 2023
+
+# List of columns to drop
+drop_cols:
+  - Age
+  - Tm
+  - GS
+

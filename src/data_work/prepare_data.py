@@ -8,6 +8,8 @@ import argparse
 import pandas as pd
 import numpy as np
 
+from src.config_func import load_config
+
 
 def import_raw_data(year:int=2024) -> np.array:
     """Function to import data from Basketball Reference and connect regular data with advanced
@@ -32,7 +34,7 @@ def import_raw_data(year:int=2024) -> np.array:
     return result.loc[:, ~result.columns.duplicated()]
 
 
-def droping_unnecessary_data(data:pd.DataFrame, list_of_cols:list) -> pd.DataFrame:
+def droping_cols(data:pd.DataFrame, list_of_cols:list) -> pd.DataFrame:
     """Droping data from given DataFrame
 
     Args:
@@ -45,21 +47,38 @@ def droping_unnecessary_data(data:pd.DataFrame, list_of_cols:list) -> pd.DataFra
     return data.drop(columns=list_of_cols)
 
 
+def droping_rows(data:pd.DataFrame, index_lst:list) -> pd.DataFrame:
+    """Droping rows from given DataFrame
+
+    Args:
+        data (pd.DataFrame): Your DataFrame
+        index_lst (list): Index of rows to erease, given as elements in list
+
+    Returns:
+        pd.DataFrame: Data after erease specific rows
+    """
+    return data.drop(index=index_lst)
+
 def main():
     """Working on data: importing from raw files, eareasing NaN columns, eareasing not neccesary data
     """
 
-    parser = argparse.ArgumentParser(description="Importowanie data from different years")
-    parser.add_argument("--start_year", type=int, default=1999, help="Starting year")
-    parser.add_argument("--end_year", type=int, default=2024, help="Ending year")
-    args = parser.parse_args()
-    
-    start_year = args.start_year
-    end_year = args.end_year
+    config = load_config("configs/data_config.yaml")
+
+    start_year = config.get("start_year")
+    end_year = config.get("end_year")
+    drop_cols = config.get("drop_cols")
 
     while end_year > start_year:
         data = import_raw_data(end_year)
-        data = droping_unnecessary_data(data, ["Unnamed: 19", "Unnamed: 24"])
+        data = droping_cols(data, ["Unnamed: 19",
+                                   "Unnamed: 24",
+                                   "Player-additional"])
+        data = droping_cols(data, drop_cols)
+
+        games_less_82 = data.loc[data["G"] < 65].index
+        data = droping_rows(data, games_less_82)
+
         data.to_csv("data/redacted_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full")
         end_year -= 1
 
