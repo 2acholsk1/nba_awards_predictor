@@ -32,9 +32,17 @@ def import_raw_data(year:int=2024) -> np.array:
     return result.loc[:, ~result.columns.duplicated()]
 
 
-def droping_unnecessary_data(data:pd.DataFrame) -> pd.DataFrame:
-    data = data.drop(columns=["Unnamed: 24", "Unnamed: 19"])
-    return data
+def droping_unnecessary_data(data:pd.DataFrame, list_of_cols:list) -> pd.DataFrame:
+    """Droping data from given DataFrame
+
+    Args:
+        data (pd.DataFrame): Your DataFrame
+        list_of_cols (np.array): Columns to erease, given as elements in list
+
+    Returns:
+        pd.DataFrame: Data after erease specific columns
+    """
+    return data.drop(columns=list_of_cols)
 
 
 def main():
@@ -51,6 +59,7 @@ def main():
 
     while end_year > start_year:
         data = import_raw_data(end_year)
+        data = droping_unnecessary_data(data, ["Unnamed: 19", "Unnamed: 24"])
         data.to_csv("data/redacted_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full")
         end_year -= 1
 
