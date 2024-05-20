@@ -4,7 +4,6 @@
 Returns:
     bool: 1 if any error, 0 if everrything okay
 """
-import argparse
 import pandas as pd
 import numpy as np
 
@@ -59,6 +58,28 @@ def droping_rows(data:pd.DataFrame, index_lst:list) -> pd.DataFrame:
     """
     return data.drop(index=index_lst)
 
+
+def rookie_list_creator(data:pd.DataFrame, year:int) -> pd.DataFrame:
+    """Function for creating rookie list from connected regular and advanced data,
+        based on read data about drafted player in specific year.
+
+    Args:
+        data (pd.DataFrame): Regulard + advanced data frame
+        year (int): Year of end season
+
+    Returns:
+        pd.DataFrame: Dataframe of rookie players for specific year
+    """
+
+    draft_path = "data/rookie_data_raw/draft_"+str(year-1)+".csv"
+    rookie_data_check = pd.read_csv(draft_path)
+    rookie_data_check = rookie_data_check.pop("Player")
+
+    is_rookie = data["Player"].isin(rookie_data_check)
+    return data[is_rookie]
+
+    
+
 def main():
     """Working on data: importing from raw files, eareasing NaN columns, eareasing not neccesary data
     """
@@ -76,10 +97,13 @@ def main():
                                    "Player-additional"])
         data = droping_cols(data, drop_cols)
 
-        games_less_82 = data.loc[data["G"] < 65].index
-        data = droping_rows(data, games_less_82)
+        data_rookie = rookie_list_creator(data, end_year)
+        data_rookie.to_csv("data/rookie_data/rookie_"+str(end_year-1)+"_"+str(end_year)+".csv")
 
-        data.to_csv("data/redacted_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full")
+        games_less_82 = data.loc[data["G"] < 65].index
+        data_all_nba = droping_rows(data, games_less_82)
+
+        data_all_nba.to_csv("data/all_nba_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full.csv")
         end_year -= 1
 
 if __name__ == '__main__':
