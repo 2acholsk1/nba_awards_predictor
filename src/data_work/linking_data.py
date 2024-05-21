@@ -8,8 +8,9 @@ def is_all_nba(data:pd.DataFrame, results:pd.DataFrame, year, player):
     year_col = str(year-1)+"_"+str(year)
     target_index = results[(results["Season"] == year_col) & (results["Tm"] == "1st")].index
 
-    # if (results.loc[target_index] == player).any():
-    #     data.loc[]
+    if (results.loc[target_index] == player).any():
+        player_index = data[(data["Player"] == player)].index
+        data[player_index] 
 
 
 def main():

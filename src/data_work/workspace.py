@@ -2,17 +2,20 @@ import pandas as pd
 # from src.data_work.prepare_data import import_raw_data
 # from src.data_work.prepare_data import droping_unnecessary_data
 
-draft_path = "data/rookie_data_raw/draft_"+str(2022)+".csv"
-rs_path = "data/raw_data/rs_2022_2023.csv"
-rookie_data = pd.read_csv(draft_path)
-data = pd.read_csv(rs_path)
-# rookie_data = rookie_data.pop("Player")
-rookie_data = rookie_data.pop("Player")
+year = 2020
+data = pd.read_csv("data/all_nba_data/rs_"+str(year-1)+"_"+str(year)+"_full.csv")
+results = pd.read_csv("data/results/all_nba_results.csv")
+        
+year_col = str(year-1)+"_"+str(year)
+target_index = results[(results["Season"] == year_col) & (results["Tm"] == "1st")].index
 
-is_rookie = data["Player"].isin(rookie_data)
+print(results.loc[target_index])
+print(results.loc[target_index, "Unnamed: 6"])
 
-data = data[is_rookie]
+player = "LeBron James"
 
+print((results.loc[target_index, ["Unnamed: 6", "Unnamed: 7"]] == player))
 
-
-print(data)
+# if results.loc(results[target_index].any() == player):
+#     player_index = data[(data["Player"] == player)].index
+#     print(data[player_index])"Unnamed: 6"
