@@ -23,6 +23,9 @@ def main():
     for i in range(5):
         data_all_nba.iloc[:, -(i+1)] = data_all_nba.iloc[:, -(i+1)].str[:-2]
         data_rookie.iloc[:, -(i+1)] = data_rookie.iloc[:, -(i+1)]
+        
+        # data_all_nba = data_all_nba.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
+        # data_rookie = data_rookie.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
 
     while end_year > start_year:
         season_rename = str(end_year-1)+"_"+str(end_year)
@@ -31,8 +34,9 @@ def main():
 
         end_year -= 1
 
-    data_all_nba.to_csv("data/results/all_nba_results.csv")
-    data_rookie.to_csv("data/results/rookie_results.csv")
+
+    data_all_nba.to_csv("data/results/all_nba_results.csv", index=False)
+    data_rookie.to_csv("data/results/rookie_results.csv", index=False)
 
 if __name__ == '__main__':
     main()

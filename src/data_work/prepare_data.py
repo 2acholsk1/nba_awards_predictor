@@ -98,12 +98,15 @@ def main():
         data = droping_cols(data, drop_cols)
 
         data_rookie = rookie_list_creator(data, end_year)
-        data_rookie.to_csv("data/rookie_data/rookie_"+str(end_year-1)+"_"+str(end_year)+".csv")
+        data_rookie.to_csv("data/rookie_data/rookie_"+str(end_year-1)+"_"+str(end_year)+".csv", index=False)
 
-        games_less_82 = data.loc[data["G"] < 65].index
-        data_all_nba = droping_rows(data, games_less_82)
+        if end_year == 2024:
+            games_less_82 = data.loc[data["G"] < 65].index
+            data_all_nba = droping_rows(data, games_less_82)
+        else:
+            data_all_nba = data
 
-        data_all_nba.to_csv("data/all_nba_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full.csv")
+        data_all_nba.to_csv("data/all_nba_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full.csv", index=False)
         end_year -= 1
 
 if __name__ == '__main__':
