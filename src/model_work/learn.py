@@ -1,12 +1,13 @@
 
 import sys
 import os
+import pickle
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report, accuracy_score, log_loss, confusion_matrix
 import xgboost as xgb
 import numpy as np
-import pickle
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import classification_report, accuracy_score, log_loss
+from src.config_func import load_config
 
 
 params_name = sys.argv[1]
@@ -23,20 +24,26 @@ def main():
     label_encoder_test = LabelEncoder()
     label_encoder_pos_test = LabelEncoder()
 
-    eyear = 2023
-    year = 1999
+    config = load_config("configs/data_config.yaml")
+
+    start_year = config.get("start_year")
+    end_year = config.get("end_year")
+    drop_features = config.get("drop_features")
     data = []
+
+    end_year -= 1
 
     with open(params_path, 'rb') as f:
         best_params = pickle.load(f)
 
-    while eyear > year:
-        data_con = pd.read_csv("data/final_data/all_nba_final_" + str(eyear-1) + "_" + str(eyear) + ".csv")
+    while end_year > start_year:
+        data_con = pd.read_csv("data/final_data/all_nba_final_" + str(end_year-1) + "_" + str(end_year) + ".csv")
         data.append(data_con)
-        eyear -= 1
+        end_year -= 1
 
     data = pd.concat(data)
     data = data.dropna()
+    data = data.drop(columns=drop_features)
 
     encoded_players = label_encoder.fit_transform(data['Player'])
     encoded_pos = label_encoder_pos.fit_transform(data['Pos'])
@@ -46,12 +53,14 @@ def main():
     data.insert(0, "Pos_encoded",  encoded_pos)
     data.insert(0, "Tm_encoded",  encoded_tm)
     data = data.drop(columns=['Player', 'Pos', 'Rk', 'Tm'])
+    data.to_csv("model/example_for_columns_data.csv", index=False)
 
     features = data.iloc[:, :-1].values
     labels = data.iloc[:, -1].values
 
     data_test = pd.read_csv("data/final_data/all_nba_final_2023_2024.csv")
     data_test = data_test.dropna()
+    data_test = data_test.drop(columns=drop_features)
 
     encoded_players_test = label_encoder_test.fit_transform(data_test['Player'])
     encoded_pos_test = label_encoder_pos_test.fit_transform(data_test['Pos'])
@@ -84,7 +93,7 @@ def main():
         top_10 = data_test.nlargest(10, f'Prob_{class_name}')
         print(f"Top 10 players for {class_name} NBA Team:")
         print(top_10[['Player_Decoded', f'Prob_{class_name}']])
-        print()
+        
 
     print(classification_report(labels_test, y_pred))
     print(f'Accuracy: {accuracy_score(labels_test, y_pred)}')
