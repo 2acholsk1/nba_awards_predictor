@@ -78,6 +78,16 @@ def rookie_list_creator(data:pd.DataFrame, year:int) -> pd.DataFrame:
     is_rookie = data["Player"].isin(rookie_data_check)
     return data[is_rookie]
 
+
+def star_remover(data:pd.DataFrame) -> None:
+    """Removeing star from players names
+
+    Args:
+        data (pd.DataFrame): Statistics
+    """
+    data["Player"] = data["Player"].apply(lambda x: x.replace('*', '') if isinstance(x, str) else x)
+
+
     
 
 def main():
@@ -96,9 +106,11 @@ def main():
                                    "Unnamed: 24",
                                    "Player-additional"])
         data = droping_cols(data, drop_cols)
+        star_remover(data)
 
         data_rookie = rookie_list_creator(data, end_year)
         data_rookie.to_csv("data/rookie_data/rookie_"+str(end_year-1)+"_"+str(end_year)+".csv", index=False)
+
 
         if end_year == 2024:
             games_less_82 = data.loc[data["G"] < 65].index

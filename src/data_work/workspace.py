@@ -5,7 +5,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-
 # Tworzenie instancji obiektu LabelEncoder
 label_encoder = LabelEncoder()
 label_encoder_pos = LabelEncoder()
@@ -58,9 +57,10 @@ data = data.dropna()
 data1 = data1.dropna()
 
 
-features1 = data1.iloc[:, :-1].values
-labels1 = data1.iloc[:, -1].values
+features1 = data1.iloc[:, :-2].values
+labels1 = data1.iloc[:, -2:].values
 print(labels1)
+print("+++++++++++++++++++++++++++++++++++++++++++++")
 
 # print(data[['Player', 'Player_Encoded']])
 
@@ -69,21 +69,23 @@ print(labels1)
 
 # # Dodanie zdekodowanych danych do oryginalnego DataFrame
 
-features = data.iloc[:, :-1].values
-labels = data.iloc[:, -1].values
+features = data.iloc[:, :-2].values
+labels = data.iloc[:, -2].values
 
-pipe_svm_std = Pipeline(steps=[('std', StandardScaler()), ('cf', SVC())])
-pipe_svm_std.fit(features, labels)
+# pipe_svm_std = Pipeline(steps=[('std', StandardScaler()), ('cf', SVC(kernel='rbf', gamma='scale'))])
+# pipe_svm_std.fit(features, labels)
 # print(f'\nTotal score for SVM: {pipe_svm_std.score(features1,labels1)}\n')
-y_predict = pipe_svm_std.predict(features1)
-print(y_predict)
+# y_predict = pipe_svm_std.predict(features1)
+# print(y_predict)
 
+print("+++++++++++++++++++++++++++++++++++++++++++++")
 
-pipe_random_forest_std = Pipeline(steps=[('std', StandardScaler()), ('cf', RandomForestClassifier())])
+pipe_random_forest_std = Pipeline(steps=[('cf', RandomForestClassifier())])
 pipe_random_forest_std.fit(features, labels)
 print(f'\nTotal score for RandomForestClassifier: {pipe_random_forest_std.score(features1,labels1)}\n')
-# y_predict1 = pipe_random_forest_std.predict(features1)
-# print(y_predict1)
+y_predict1 = pipe_random_forest_std.predict(features1)
+print(y_predict1)
+
 
 
 # decoded_players = label_encoder.inverse_transform(encoded_players)

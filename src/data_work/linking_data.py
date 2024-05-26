@@ -20,11 +20,11 @@ def is_all_nba(data:pd.DataFrame, results:pd.DataFrame, year, players) -> None:
     for player in players:
         for i in range(5):
             if player in results.loc[target_index_1st, ["Unnamed: "+str(i+4)]].values:
-                data.loc[data["Player"] == player, "all_nba"] = 1.0
+                data.loc[data["Player"] == player, "all_nba"] = int(1)
             if player in results.loc[target_index_2nd, ["Unnamed: "+str(i+4)]].values:
-                data.loc[data["Player"] == player, "all_nba"] = 2.0
+                data.loc[data["Player"] == player, "all_nba"] = int(2)
             if player in results.loc[target_index_3rd, ["Unnamed: "+str(i+4)]].values:
-                data.loc[data["Player"] == player, "all_nba"] = 3.0
+                data.loc[data["Player"] == player, "all_nba"] = int(3)
     
 
 def is_all_rookie(data:pd.DataFrame, results:pd.DataFrame, year, players) -> None:
@@ -43,9 +43,9 @@ def is_all_rookie(data:pd.DataFrame, results:pd.DataFrame, year, players) -> Non
     for player in players:
         for i in range(5):
             if player in results.loc[target_index_1st, ["Unnamed: "+str(i+3)]].values:
-                data.loc[data["Player"] == player, "all_rookie"] = 1.0
+                data.loc[data["Player"] == player, "all_rookie"] = int(1)
             if player in results.loc[target_index_2nd, ["Unnamed: "+str(i+3)]].values:
-                data.loc[data["Player"] == player, "all_rookie"] = 2.0
+                data.loc[data["Player"] == player, "all_rookie"] = int(2)
 
 
 def main():
@@ -64,7 +64,9 @@ def main():
         data_rookie_results = pd.read_csv("data/results/rookie_results.csv")
         
         data_all_nba['all_nba'] = np.zeros(len(data_all_nba))
+        # data_all_nba.insert(loc=2, column='Season', value=end_year-1)
         data_rookie['all_rookie'] = np.zeros(len(data_rookie))
+        # data_rookie.insert(loc=2, column='Season', value=end_year-1)
 
         is_all_nba(data_all_nba, data_all_nba_results, end_year, data_all_nba["Player"])
         is_all_rookie(data_rookie, data_rookie_results, end_year, data_rookie["Player"])
@@ -73,8 +75,6 @@ def main():
         data_rookie.to_csv("data/final_data/rookie_final_"+str(end_year-1)+"_"+str(end_year)+".csv", index=False)
 
         end_year -= 1
-
-
 
 
 if __name__ == '__main__':
