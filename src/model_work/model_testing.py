@@ -126,8 +126,10 @@ import seaborn as sns
 def main():
     label_encoder = LabelEncoder()
     label_encoder_pos = LabelEncoder()
+    label_encoder_tm = LabelEncoder()
     label_encoder_test = LabelEncoder()
     label_encoder_pos_test = LabelEncoder()
+    label_encoder_tm_test = LabelEncoder()
 
     eyear = 2023
     year = 1999
@@ -143,10 +145,12 @@ def main():
 
     encoded_players = label_encoder.fit_transform(data['Player'])
     encoded_pos = label_encoder_pos.fit_transform(data['Pos'])
+    encoded_tm = label_encoder_tm.fit_transform(data['Tm'])
 
     data.insert(0, "Player_Encoded", encoded_players)
     data.insert(0, "Pos_encoded",  encoded_pos)
-    data = data.drop(columns=['Player', 'Pos', 'Rk'])
+    data.insert(0, "Tm_encoded",  encoded_tm)
+    data = data.drop(columns=['Player', 'Pos', 'Rk', 'Tm'])
 
     features = data.iloc[:, :-1].values
     labels = data.iloc[:, -1].values
@@ -156,10 +160,12 @@ def main():
 
     encoded_players_test = label_encoder_test.fit_transform(data_test['Player'])
     encoded_pos_test = label_encoder_pos_test.fit_transform(data_test['Pos'])
+    encoded_tm_test = label_encoder_pos_test.fit_transform(data_test['Pos'])
 
     data_test.insert(0, "Player_Encoded", encoded_players_test)
     data_test.insert(0, "Pos_encoded",  encoded_pos_test)
-    data_test = data_test.drop(columns=['Player', 'Pos', 'Rk'])
+    data_test.insert(0, "Tm_encoded",  encoded_tm_test)
+    data_test = data_test.drop(columns=['Player', 'Pos', 'Rk', 'Tm'])
 
     features_test = data_test.iloc[:, :-1].values
     labels_test = data_test.iloc[:, -1].values
@@ -198,9 +204,9 @@ def main():
 
     # Wyświetlanie 5 graczy z największym prawdopodobieństwem przynależności do każdej klasy
     for class_name in ['1st', '2nd', '3rd']:
-        top_5 = data_test.nlargest(5, f'Prob_{class_name}')
-        print(f"Top 5 players for {class_name} NBA Team:")
-        print(top_5[['Player_Decoded', f'Prob_{class_name}']])
+        top_10 = data_test.nlargest(10, f'Prob_{class_name}')
+        print(f"Top 10 players for {class_name} NBA Team:")
+        print(top_10[['Player_Decoded', f'Prob_{class_name}']])
         print()
 
     cm = confusion_matrix(labels_test, y_pred)

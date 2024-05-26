@@ -9,6 +9,5 @@ end_year: 2024
 # List of columns to drop
 drop_cols:
   - Age
-  - Tm
   - GS
 

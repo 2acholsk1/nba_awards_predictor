@@ -24,8 +24,8 @@ def main():
         results_all_nba.iloc[:, -(i+1)] = results_all_nba.iloc[:, -(i+1)].str[:-2]
         results_rookie.iloc[:, -(i+1)] = results_rookie.iloc[:, -(i+1)]
         
-        # data_all_nba = data_all_nba.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
-        # data_rookie = data_rookie.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
+        data_all_nba = data_all_nba.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
+        data_rookie = data_rookie.rename(columns={"Unnamed "+str(i+5) : "Pick_"+str(i)}, inplace=True)
 
     while end_year > start_year:
         season_rename = str(end_year-1)+"_"+str(end_year)
