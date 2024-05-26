@@ -41,10 +41,14 @@ setup(
     entry_points={
         'console_scripts': [
             'NBA_predict = src.__main__:main',
-            'data_prepare = src.data_work.prepare_data:main',
-            'data_team_prepare = src.data_work.teams_data_prepare:main',
-            'data_format = src.data_work.formating_data:main',
-            'data_link = src.data_work.linking_data:main',
+            'data_prepare = src.data_work.preparing:main',
+            'data_team_prepare = src.data_work.preparing_teams:main',
+            'data_format = src.data_work.formating:main',
+            'data_link = src.data_work.linking:main',
+            'model_test = src.model_work.testing:main',
+            'model_learn = src.model_work.learn:main',
+            'model_feature_importance = src.model_work.features_importance:main',
+            'model_params_search = src.model_work.parameters_search:main',
         ],
     },
     python_requires='>=3.11',

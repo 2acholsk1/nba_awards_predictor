@@ -209,12 +209,45 @@ def main():
         print(top_10[['Player_Decoded', f'Prob_{class_name}']])
         print()
 
+    # decoded_players = label_encoder_test.inverse_transform(encoded_players_test)
+    # data_test['Player_Decoded'] = decoded_players
+    # index = np.where(y_pred == 1.0)
+    # print(f"1 ; {index}")
+    # print(data_test.iloc[index])
+    # index = np.where(y_pred == 2.0)
+    # print(f"2 ; {index}")
+    # print(data_test.iloc[index])
+    # index = np.where(y_pred == 3.0)
+    # print(f"3 ; {index}")
+    # print(data_test.iloc[index])
+
     cm = confusion_matrix(labels_test, y_pred)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", annot_kws={"size": 16})
     plt.xlabel('Predicted labels')
     plt.ylabel('True labels')
     plt.title('Confusion Matrix')
+    plt.show()
+
+    feature_importance = model.feature_importances_
+
+# Nazwy cech
+    feature_names = data.columns[:-1]
+
+    data.to_csv("model/example_for_columns_data.csv", index=False)
+
+    # Tworzenie DataFrame z ważnością cech
+    feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': feature_importance})
+
+    # Sortowanie cech według ważności
+    feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
+
+    # Wykres ważności cech
+    plt.figure(figsize=(12, 10))
+    sns.barplot(x='Importance', y='Feature', data=feature_importance_df)
+    plt.title('Feature Importance')
+    plt.xlabel('Importance')
+    plt.ylabel('Feature')
     plt.show()
 
 if __name__ == '__main__':
