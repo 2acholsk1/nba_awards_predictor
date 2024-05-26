@@ -1,0 +1,60 @@
+# Configuration file for data
+
+# Year of start process data
+start_year: 1999
+
+# Year of end process data
+end_year: 2024
+
+# Name of parameters file
+params_name: rand_search_xgb
+
+# Name of learned model
+model_name: model_xgb
+
+# List of columns to drop
+drop_cols:
+  - Age
+  - GS
+
+drop_features:
+  - ORB%
+  - BLK
+  - STL%
+  - 2P%
+  - 3PAr
+  - FTr
+  - STL
+  - TS%
+  - 3P
+  - TOV%
+  - TRB%
+  - DBPM
+  - 3PA
+  - OWS
+  - AST%
+  - BPM
+  - eFG%
+  - TRB
+  - WS/48
+  - FT
+  - DRB%
+  - FT%
+  - 3P%
+  - BLK%
+  # - AST
+  # - ORB
+  # - FG%
+  # - PF
+  # - DRB
+  # - OBPM
+  # - 2PA
+  # - FGA
+  # - TOV
+  # - G
+  # - DWS
+  # - 2P
+  # - WS
+  # - FTA
+  # - FG
+
