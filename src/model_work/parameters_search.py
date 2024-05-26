@@ -6,25 +6,34 @@ import pandas as pd
 from scipy.stats import uniform, randint
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import RandomizedSearchCV
+from src.config_func import load_config
 
 def main():
     
+    config = load_config("configs/prediction_config.yaml")
+    drop_features = config.get("drop_features")
+    params_name = config.get("params_name")
+    start_year = config.get("start_year")
+    end_year = config.get("end_year")
+    end_year -= 1
+    data = []
+
+
     label_encoder = LabelEncoder()
     label_encoder_pos = LabelEncoder()
     label_encoder_tm = LabelEncoder()
-    label_encoder_test = LabelEncoder()
 
-    eyear = 2023
-    year = 1999
-    data = []
+    
+    
 
-    while eyear > year:
-        data_con = pd.read_csv("data/final_data/all_nba_final_" + str(eyear-1) + "_" + str(eyear) + ".csv")
+    while end_year > start_year:
+        data_con = pd.read_csv("data/final_data/all_nba_final_" + str(end_year-1) + "_" + str(end_year) + ".csv")
         data.append(data_con)
-        eyear -= 1
+        end_year -= 1
 
     data = pd.concat(data)
     data = data.dropna()
+    data = data.drop(columns=drop_features)
 
     encoded_players = label_encoder.fit_transform(data['Player'])
     encoded_pos = label_encoder_pos.fit_transform(data['Pos'])
@@ -56,7 +65,7 @@ def main():
     random_search_xgb.fit(features, labels)
 
     print(f"Best parameters found by Randomized Search:{random_search_xgb.best_params_}")
-    with open('model/params/random_search_results_for_xgb.pkl', 'wb') as f:
+    with open('model/params/'+str(params_name)+'.pkl', 'wb') as f:
         pickle.dump(random_search_xgb.cv_results_, f)
     
 

@@ -1,23 +1,23 @@
 {
   "first all-nba team": [
-    "Shai Gilgeous-Alexander",
-    "Luka Don\u010di\u0107",
     "Giannis Antetokounmpo",
+    "Luka Don\u010di\u0107",
     "Nikola Joki\u0107",
+    "Shai Gilgeous-Alexander",
     "Jalen Brunson"
   ],
   "second all-nba team": [
     "Jayson Tatum",
-    "Anthony Edwards",
-    "LeBron James",
     "Stephen Curry",
-    "Anthony Davis"
+    "Anthony Davis",
+    "Anthony Edwards",
+    "LeBron James"
   ],
   "third all-nba team": [
     "Domantas Sabonis",
-    "Zion Williamson",
-    "Tyrese Haliburton",
-    "Victor Wembanyama",
-    "Jarrett Allen"
+    "De'Aaron Fox",
+    "Kevin Durant",
+    "Devin Booker",
+    "Tyrese Maxey"
   ]
 }

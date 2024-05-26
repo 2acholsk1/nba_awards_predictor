@@ -12,11 +12,14 @@ from src.config_func import load_config
 prediction_path = sys.argv[1]
 
 def main():
-    with open("model/model_xgboost.pkl", "rb") as f:
-        model = pickle.load(f)
+    
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
+    model_name = config.get("model_name")
     drop_features = config.get("drop_features")
+
+    with open("model/"+str(model_name)+".pkl", "rb") as f:
+        model = pickle.load(f)
 
     label_encoder_test = LabelEncoder()
     label_encoder_pos_test = LabelEncoder()

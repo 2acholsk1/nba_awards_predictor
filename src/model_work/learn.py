@@ -1,6 +1,5 @@
+#!/usr/bin/env python3
 
-import sys
-import os
 import pickle
 import pandas as pd
 import xgboost as xgb
@@ -9,14 +8,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score, log_loss
 from src.config_func import load_config
 
-
-params_name = sys.argv[1]
-params_path = 'model/params/'+ params_name
-
-if not os.path.isfile(params_path):
-    print("Params do not exist.")
-    sys.exit(1)
-
 def main():
     label_encoder = LabelEncoder()
     label_encoder_pos = LabelEncoder()
@@ -24,16 +15,18 @@ def main():
     label_encoder_test = LabelEncoder()
     label_encoder_pos_test = LabelEncoder()
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
 
     start_year = config.get("start_year")
     end_year = config.get("end_year")
+    params_name = config.get("params_name")
+    model_name = config.get("model_name")
     drop_features = config.get("drop_features")
     data = []
 
     end_year -= 1
 
-    with open(params_path, 'rb') as f:
+    with open('model/params/'+str(params_name)+'.pkl', 'rb') as f:
         best_params = pickle.load(f)
 
     while end_year > start_year:
@@ -99,7 +92,7 @@ def main():
     print(f'Accuracy: {accuracy_score(labels_test, y_pred)}')
     print(f'Log Loss: {log_loss(labels_test, y_pred_prob)}')
 
-    with open('model/model_xgboost.pkl', 'wb') as f:
+    with open('model/'+str(model_name)+'.pkl', 'wb') as f:
         pickle.dump(model, f)
 
 if __name__ == '__main__':

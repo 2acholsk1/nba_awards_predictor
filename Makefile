@@ -12,7 +12,7 @@ SRC_DIR := src
 
 .DEFAULT_GOAL = help
 
-.PHONY setup-venv:
+.PHONY: setup-venv
 setup-venv:
 	$(PYTHON) -m venv .
 
@@ -33,6 +33,12 @@ clean:
 		dist \
 		NBA_Awards_Predictor.egg-info
 
+.PHONY: data-work
+data-work:
+	data_prepare
+	data_team_prepare
+	data_format
+	data_link
 
 .PHONY: help
 help:

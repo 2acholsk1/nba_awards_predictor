@@ -2,26 +2,22 @@
 """Generate figure with features importance
 """
 
-import os
-import sys
 import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from src.config_func import load_config
 
 
-model_name = sys.argv[1]
-model_path = 'model/' + model_name
-
-if not os.path.isfile(model_path):
-    print("Model does not exist.")
-    sys.exit(1)
 
 def main():
     """Ploting features importance
     """
+
+    config = load_config("configs/prediction_config.yaml")
+    model_name = config.get("params_name")
     
-    with open(model_path, 'rb') as f:
+    with open('model/'+str(model_name), 'rb') as f:
         model = pickle.load(f)
 
     data_example = pd.read_csv("model/example_for_columns_data.csv")

@@ -7,7 +7,7 @@ Returns:
 import pandas as pd
 import numpy as np
 
-from src.config_func import load_config
+from src.config_func import load_config, print_in_box
 
 
 def import_raw_data(year:int=2024) -> np.array:
@@ -94,7 +94,7 @@ def main():
     """Working on data: importing from raw files, eareasing NaN columns, eareasing not neccesary data
     """
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
 
     start_year = config.get("start_year")
     end_year = config.get("end_year")
@@ -121,5 +121,8 @@ def main():
         data_all_nba.to_csv("data/all_nba_data/rs_"+str(end_year-1)+"_"+str(end_year)+"_full.csv", index=False)
         end_year -= 1
 
+    print_in_box("Preparing players and results data end successfully!")
+
 if __name__ == '__main__':
     main()
+    

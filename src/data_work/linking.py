@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import pandas as pd
-from src.config_func import load_config
+from src.config_func import load_config, print_in_box
 import numpy as np
 
 def is_all_nba(data:pd.DataFrame, results:pd.DataFrame, year, players) -> None:
@@ -70,7 +70,7 @@ def main():
     """Main function of linking data
     """
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
 
     start_year = config.get("start_year")
     end_year = config.get("end_year")
@@ -97,6 +97,9 @@ def main():
 
         end_year -= 1
 
+    print_in_box(f"Linking data end successfully!")
+
 
 if __name__ == '__main__':
     main()
+    

@@ -3,13 +3,13 @@
 """
 
 import pandas as pd
-from src.config_func import load_config
+from src.config_func import load_config, print_in_box
 
 def main():
     """Main function of formating results CSV file
     """
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
 
     start_year = config.get("start_year")
     end_year = config.get("end_year")
@@ -35,5 +35,8 @@ def main():
     results_all_nba.to_csv("data/results/all_nba_results.csv", index=False)
     results_rookie.to_csv("data/results/rookie_results.csv", index=False)
 
+    print_in_box("Formating data end successfully!")
+
 if __name__ == '__main__':
     main()
+    

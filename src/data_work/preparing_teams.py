@@ -7,7 +7,7 @@ Returns:
 
 import pandas as pd
 
-from src.config_func import load_config
+from src.config_func import load_config, print_in_box
 
 
 def team_data_droping(data:pd.DataFrame) -> pd.DataFrame:
@@ -52,7 +52,7 @@ def main():
     """Main function to preparing team data to converting other data
     """
 
-    config = load_config("configs/data_config.yaml")
+    config = load_config("configs/prediction_config.yaml")
     team_names = load_config("configs/teams_shortcuts.yaml")
 
     start_year = config.get("start_year")
@@ -70,8 +70,9 @@ def main():
         data_teams.to_csv("data/teams_data/teams_data_"+str(end_year-1)+"_"+str(end_year)+"_updated.csv", index=False)
 
         end_year -= 1
-    
 
+    print_in_box("Preparing team data end successfully!")
 
 if __name__ == '__main__':
     main()
+    
