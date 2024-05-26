@@ -42,6 +42,7 @@ setup(
         'console_scripts': [
             'NBA_predict = src.__main__:main',
             'data_prepare = src.data_work.prepare_data:main',
+            'data_team_prepare = src.data_work.teams_data_prepare:main',
             'data_format = src.data_work.formating_data:main',
             'data_link = src.data_work.linking_data:main',
         ],

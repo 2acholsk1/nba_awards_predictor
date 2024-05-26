@@ -47,11 +47,23 @@ def is_all_rookie(data:pd.DataFrame, results:pd.DataFrame, year, players) -> Non
             if player in results.loc[target_index_2nd, ["Unnamed: "+str(i+3)]].values:
                 data.loc[data["Player"] == player, "all_rookie"] = int(2)
 
-def team_result_feature(data:pd.DataFrame, year) -> None:
+def team_result_feature(data:pd.DataFrame, year) -> pd.DataFrame:
+    """Function to add feature about team win percentage in regular season
 
-    data_team = pd.read_csv("data/teams_data_raw/teams_data_"+str(year-1)+"_"+str(year)+".csv")
+    Args:
+        data (pd.DataFrame): Player statistics
+        year (_type_): Year of end season
 
-    
+    Returns:
+        pd.DataFrame: Merged data with team result feature
+    """
+
+    data_team = pd.read_csv("data/teams_data/teams_data_"+str(year-1)+"_"+str(year)+"_updated.csv")
+    merged_data = pd.merge(data, data_team[['Tm', 'Balance']], on='Tm', how='left')
+
+    return merged_data
+
+
 
 
 def main():
@@ -69,11 +81,14 @@ def main():
         data_rookie = pd.read_csv("data/rookie_data/rookie_"+str(end_year-1)+"_"+str(end_year)+".csv")
         data_rookie_results = pd.read_csv("data/results/rookie_results.csv")
         
+        data_all_nba = team_result_feature(data_all_nba, end_year)
+        data_rookie = team_result_feature(data_rookie, end_year)
+
         data_all_nba['all_nba'] = np.zeros(len(data_all_nba))
         data_all_nba.insert(loc=2, column='Season', value=end_year-1)
         data_rookie['all_rookie'] = np.zeros(len(data_rookie))
         data_rookie.insert(loc=2, column='Season', value=end_year-1)
-
+        
         is_all_nba(data_all_nba, data_all_nba_results, end_year, data_all_nba["Player"])
         is_all_rookie(data_rookie, data_rookie_results, end_year, data_rookie["Player"])
 

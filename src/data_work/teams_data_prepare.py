@@ -62,9 +62,6 @@ def main():
     while end_year > start_year:
         data_teams = pd.read_csv("data/teams_data_raw/teams_data_"+str(end_year-1)+"_"+str(end_year)+".csv")
 
-        if end_year == 2003:
-            a = 1
-
         data_teams = team_data_droping(data_teams)
         team_result_feature(data_teams)
 

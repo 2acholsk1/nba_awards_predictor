@@ -37,6 +37,7 @@ teams_short:
   NOH: New Orleans Hornets
   CHA: Charlotte Bobcats
   NJN: New Jersey Nets
+  TOT: Total
 teams_long:
   Atlanta Hawks: ATL
   Boston Celtics: BOS
@@ -75,3 +76,4 @@ teams_long:
   New Orleans Hornets: NOH
   Charlotte Bobcats: CHA
   New Jersey Nets: NJN
+  Total: TOT
