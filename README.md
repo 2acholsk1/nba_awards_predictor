@@ -64,6 +64,7 @@ Configuration file `prediction_config.yaml` contain:
 - Lists of features to remove before training the model (drop_features, drop_features_rook).
 - Paramenters for RandomizedSearchCV in rookie all-NBA model training.
 
+You can copy this file and create own `.yaml`file for building your models.
 
 ## Making predictions
 
@@ -75,7 +76,7 @@ NBA_predict your/path/to/save/file
 
 ## Results
 
-The output from the script is saved as a .json file in a format like the following:
+The output from the script is saved as a `.json` file in a format like the following:
 ```json
 {
   "first all-nba team": [
@@ -121,9 +122,93 @@ The output from the script is saved as a .json file in a format like the followi
 
 Data downloaded from Basketball-reference [link](https://www.basketball-reference.com/)
 
-Statistics of players playing in the NBA from the 1999/2000 season to 2023/2024.
+Statistics of players playing in the NBA from the 1999/2000 season to 2023/2024. This range of data was adopted because of the assurance of a sufficiently large dataset that is 25 seasons and a historical reason without coverage: This was the season in which Kobe Bryant won his first championship ring.
 
 Description of shortcuts in data farames [link](https://github.com/2acholsk1/nba_awards_predictor/tree/main/data/desc_short.md)
 
 ## Documentation
 
+Overall view on program workflow:
+![Overall flow](data/markdown/diagram/program_workflow.drawio.png)
+
+The documentation is focused on showing what happens in the files in question, which are also described using docstrings. After command `make setup` you can use this scripts with specific commands described also below.
+
+- **data_work/preparing.py:**
+
+The script is used to work on data, such as importing data, deleting columns and rows, creating a rookie list, and removing asterisks from players' names.
+
+```bash
+data_prepare
+```
+
+- **data_work/preparing_teams:**
+
+The script is used to prepare team data by extracting relevant information about teams and their performance.
+
+```bash
+data_team_prepare
+```
+
+- **data_work/formating.py:**
+
+This script is designed to format score data from Basketball Reference. It reads CSV files containing scores for All-NBA teams and rookies, removes unnecessary columns, adjusts season formatting and writes the data to new CSV files.
+
+```bash
+data_format
+```
+
+- **data_work/linking.py:**
+
+The script is used to label player data, determining whether players were selected to the All-NBA team or the rookie team in a given season. In addition, it also adds a feature related to the team's regular season score.
+
+```bash
+data_link
+```
+
+- **model_work/parameters_search.py:**
+
+The script is used to automatically find optimal parameters for the XGBoost model using Randomized Search. It uses linked data with All-NBA results from different seasons to train and evaluate the model.
+
+```bash
+data_params_search
+```
+
+- **model_work/train.py:**
+
+The script is dedicated to train an All-NBA model using the XGBoost algorithm. It uses combined data from different seasons, encodes categorical columns and trains the model based on the best parameters found earlier.
+
+```bash
+data_train
+```
+
+- **model_work/feature_important**
+
+The script is used to generate a graph showing the importance of the features of the trained model. It uses the model loaded from the .pkl file and sample data to display which features were most important to the model during the learning process.
+
+```bash
+data_feature_important
+```
+
+- **model_rookie_work/parameters_search.py:**
+
+The script is used to automatically find optimal parameters for the XGBoost model using Randomized Search. It uses linked data with All-NBA results from different seasons to train and evaluate the model. But for rookie model.
+
+```bash
+data_params_search_rookie
+```
+
+- **model_rookie_work/train.py:**
+
+The script is dedicated to train a rookie All-NBA model using the XGBoost algorithm. It uses combined data from different seasons, encodes categorical columns and trains the model based on the best parameters found earlier. But for rookie model.
+
+```bash
+data_train_rookie
+```
+
+- **model_rookie_work/feature_important**
+
+The script is used to generate a graph showing the importance of the features of the trained model. It uses the model loaded from the .pkl file and sample data to display which features were most important to the model during the learning process. But for rookie model.
+
+```bash
+data_feature_important_rookie
+```
