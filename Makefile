@@ -40,6 +40,16 @@ data-work:
 	data_format
 	data_link
 
+.PHONY: model-all-nba
+model-all-nba:
+	model_params_search
+	model_train
+
+.PHONY: model-rookie
+model-rookie:
+	model_params_search_rookie
+	model_train_rookie
+
 .PHONY: help
 help:
 	@echo "-------------------- USAGE --------------------"

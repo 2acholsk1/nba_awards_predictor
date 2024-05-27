@@ -1,4 +1,4 @@
-# Configuration file for data
+# Configuration file for this program
 
 # Year of start process data
 start_year: 1999
@@ -6,17 +6,34 @@ start_year: 1999
 # Year of end process data
 end_year: 2024
 
-# Name of parameters file
-params_name: rand_search_xgb
+# Name of parameters file for all-nba model training
+params_name: rand_search_xgb_v2
 
-# Name of learned model
-model_name: model_xgb
+# Name of learned all-nba model training
+model_name: model_xgb_v2
 
-# List of columns to drop
+# Number of iterations to search parameters in all-nba model
+n_iterations: 50
+
+# Number of iterations to search parameters in rookie all-nba model
+n_iterations_rook: 50
+
+# Name of parameters file for all-nba rookie model training
+params_name_rook: rand_search_xgb_rook_v2
+
+# Name of learned all-nba rookie model training
+model_name_rook: model_xgb_rook_v2
+
+# Names of models used in main prediction scritpt:
+prediction_model: model_xgb_full
+prediction_model_rook: model_xgb_rook
+
+# List of columns to drop on beginning
 drop_cols:
   - Age
   - GS
 
+# Features list droping before training, you can find definition of shortcuts in data/desc_short.md
 drop_features:
   - ORB%
   - BLK
@@ -42,19 +59,121 @@ drop_features:
   - FT%
   - 3P%
   - BLK%
+  - AST
+  - ORB
+  - FG%
+  - PF
+  - DRB
+  - OBPM
+  - 2PA
+  - FGA
+  - TOV
+  - G
+  - DWS
+  - 2P
+  - WS
+  - FTA
+  - FG
+
+# Ranges for Random search of parameters in all-NBA model training
+learning_rate:
+  min: 0.01
+  max: 0.3
+max_depth:
+  min: 1
+  max: 10
+min_child_weight:
+  min: 1
+  max: 10
+subsample:
+  min: 0.5
+  max: 1.0
+colsample_bytree:
+  min: 0.5
+  max: 1.0
+gamma:
+  min: 0
+  max: 0.5
+reg_alpha:
+  min: 0
+  max: 1
+reg_lambda:
+  min: 0
+  max: 1
+n_estimators:
+  min: 50
+  max: 200
+
+# Features list droping before training in rookie model, you can find definition of shortcuts in data/desc_short.md
+drop_features_rook:
+  - ORB%
+  # - BLK
+  - STL%
+  - 2P%
+  - 3PAr
+  # - FTr
+  - STL
+  # - TS%
+  # - 3P
+  # - TOV%
+  - TRB%
+  - DBPM
+  - 3PA
+  # - OWS
+  - AST%
+  # - BPM
+  - eFG%
+  # - TRB
+  # - WS/48
+  # - FT
+  - DRB%
+  - FT%
+  - 3P%
+  # - BLK%
   # - AST
   # - ORB
-  # - FG%
+  - FG%
   # - PF
   # - DRB
-  # - OBPM
+  - OBPM
   # - 2PA
   # - FGA
   # - TOV
-  # - G
+  - G
   # - DWS
   # - 2P
   # - WS
   # - FTA
   # - FG
+  - ORB
+  # - Balance
+  - USG%
 
+# Ranges for Random search of parameters in rookie all-NBA model training
+learning_rate_rook:
+  min: 0.01
+  max: 0.3
+max_depth_rook:
+  min: 1
+  max: 10
+min_child_weight_rook:
+  min: 1
+  max: 10
+subsample_rook:
+  min: 0.5
+  max: 1.0
+colsample_bytree_rook:
+  min: 0.5
+  max: 1.0
+gamma_rook:
+  min: 0
+  max: 0.5
+reg_alpha_rook:
+  min: 0
+  max: 1
+reg_lambda_rook:
+  min: 0
+  max: 1
+n_estimators_rook:
+  min: 50
+  max: 200

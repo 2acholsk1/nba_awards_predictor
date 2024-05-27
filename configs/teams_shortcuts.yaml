@@ -4,7 +4,7 @@ teams_short:
   ATL: Atlanta Hawks
   BOS: Boston Celtics
   BKN: Brooklyn Nets
-  CHA: Charlotte Hornets
+  CHO: Charlotte Hornets
   CHI: Chicago Bulls
   CLE: Cleveland Cavaliers
   DAL: Dallas Mavericks
@@ -42,7 +42,7 @@ teams_long:
   Atlanta Hawks: ATL
   Boston Celtics: BOS
   Brooklyn Nets: BKN
-  Charlotte Hornets: CHA
+  Charlotte Hornets: CHO
   Chicago Bulls: CHI
   Cleveland Cavaliers: CLE
   Dallas Mavericks: DAL
