@@ -15,8 +15,8 @@ def main():
     
 
     config = load_config("configs/prediction_config.yaml")
-    model_name = config.get("model_name")
-    model_name_rook = config.get("model_name_rook")
+    model_name = config.get("prediction_model")
+    model_name_rook = config.get("prediction_model_rook")
     drop_features = config.get("drop_features")
     drop_features_rook = config.get("drop_features_rook")
 
@@ -103,7 +103,7 @@ def main():
         "second rookie all-nba team": second_rookie_team['Player_Decoded'].tolist(),
     }
 
-    with open(prediction_path+'.json', 'w') as f:
+    with open(prediction_path+'.json', 'w', encoding='utf-8') as f:
         json.dump(teams, f, indent=2)
 
 

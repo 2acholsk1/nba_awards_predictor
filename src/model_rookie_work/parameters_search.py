@@ -51,16 +51,16 @@ def main():
     model = xgb.XGBClassifier(objective='multi:softprob')
 
     param_dist = {
-        'learning_rate': uniform(0.01, 0.3),
-        'max_depth': randint(1, 10),
-        'min_child_weight': randint(1, 10),
-        'subsample': uniform(0.5, 0.5),
-        'colsample_bytree': uniform(0.5, 0.5),
-        'gamma': uniform(0, 0.5),
-        'reg_alpha': uniform(0, 1),
-        'reg_lambda': uniform(0, 1),
-        'n_estimators': randint(50, 200)
-    }
+    'learning_rate': uniform(config['learning_rate_rook']['min'], config['learning_rate_rook']['max']),
+    'max_depth': randint(config['max_depth_rook']['min'], config['max_depth_rook']['max']),
+    'min_child_weight': randint(config['min_child_weight_rook']['min'], config['min_child_weight_rook']['max']),
+    'subsample': uniform(config['subsample_rook']['min'], config['subsample_rook']['max']),
+    'colsample_bytree': uniform(config['colsample_bytree_rook']['min'], config['colsample_bytree_rook']['max']),
+    'gamma': uniform(config['gamma_rook']['min'], config['gamma_rook']['max']),
+    'reg_alpha': uniform(config['reg_alpha_rook']['min'], config['reg_alpha_rook']['max']),
+    'reg_lambda': uniform(config['reg_lambda_rook']['min'], config['reg_lambda_rook']['max']),
+    'n_estimators': randint(config['n_estimators_rook']['min'], config['n_estimators_rook']['max'])
+}
 
     random_search_xgb = RandomizedSearchCV(model, param_distributions=param_dist, n_iter=n_iterations, cv=5, verbose=2, random_state=42, n_jobs=-1)
     random_search_xgb.fit(features, labels)
