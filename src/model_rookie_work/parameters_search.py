@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-"""Script for searching best parameters for xgb model
-"""
 
 import pickle
 import xgboost as xgb
@@ -11,24 +9,26 @@ from sklearn.model_selection import RandomizedSearchCV
 from src.config_func import load_config
 
 def main():
-    """Main function for finding best parameters of model
-    """
     
     config = load_config("configs/prediction_config.yaml")
     drop_features = config.get("drop_features")
-    params_name = config.get("params_name")
-    n_iterations = config.get("n_iterations")
+    params_name = config.get("params_name_rook")
+    n_iterations = config.get("n_iterations_rook")
     start_year = config.get("start_year")
     end_year = config.get("end_year")
     end_year -= 1
     data = []
 
+
     label_encoder = LabelEncoder()
     label_encoder_pos = LabelEncoder()
     label_encoder_tm = LabelEncoder()
+
     
+    
+
     while end_year > start_year:
-        data_con = pd.read_csv("data/final_data/all_nba_final_" + str(end_year-1) + "_" + str(end_year) + ".csv")
+        data_con = pd.read_csv("data/final_data/rookie_final_" + str(end_year-1) + "_" + str(end_year) + ".csv")
         data.append(data_con)
         end_year -= 1
 

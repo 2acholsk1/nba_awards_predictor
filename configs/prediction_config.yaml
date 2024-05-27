@@ -1,4 +1,4 @@
-# Configuration file for data
+# Configuration file for this program
 
 # Year of start process data
 start_year: 1999
@@ -6,17 +6,30 @@ start_year: 1999
 # Year of end process data
 end_year: 2024
 
-# Name of parameters file
-params_name: rand_search_xgb
+# Name of parameters file for all-nba model
+params_name: rand_search_xgb_full
 
-# Name of learned model
-model_name: model_xgb
+# Name of learned all-nba model
+model_name: model_xgb_full
+
+# Number of iterations to search parameters in all-nba model
+n_iterations: 500
+
+# Number of iterations to search parameters in rookie all-nba model
+n_iterations_rook: 250
+
+# Name of parameters file for all-nba rookie model
+params_name_rook: rand_search_xgb_rook
+
+# Name of learned all-nba rookie model
+model_name_rook: model_xgb_rook
 
 # List of columns to drop
 drop_cols:
   - Age
   - GS
 
+# Features list droping before training
 drop_features:
   - ORB%
   - BLK
@@ -42,19 +55,63 @@ drop_features:
   - FT%
   - 3P%
   - BLK%
+  - AST
+  - ORB
+  - FG%
+  - PF
+  - DRB
+  - OBPM
+  - 2PA
+  - FGA
+  - TOV
+  - G
+  - DWS
+  - 2P
+  - WS
+  - FTA
+  - FG
+
+# Features list droping before training in rookie model
+drop_features_rook:
+  - ORB%
+  # - BLK
+  - STL%
+  - 2P%
+  - 3PAr
+  # - FTr
+  - STL
+  # - TS%
+  # - 3P
+  # - TOV%
+  - TRB%
+  - DBPM
+  - 3PA
+  # - OWS
+  - AST%
+  # - BPM
+  - eFG%
+  # - TRB
+  # - WS/48
+  # - FT
+  - DRB%
+  - FT%
+  - 3P%
+  # - BLK%
   # - AST
   # - ORB
-  # - FG%
+  - FG%
   # - PF
   # - DRB
-  # - OBPM
+  - OBPM
   # - 2PA
   # - FGA
   # - TOV
-  # - G
+  - G
   # - DWS
   # - 2P
   # - WS
   # - FTA
   # - FG
-
+  - ORB
+  # - Balance
+  - USG%

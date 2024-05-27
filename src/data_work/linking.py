@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""Script for labeling data
+
+Returns:
+    _type_: Labeled data
+"""
+
 import pandas as pd
 from src.config_func import load_config, print_in_box
 import numpy as np
