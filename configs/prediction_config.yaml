@@ -7,10 +7,10 @@ start_year: 1999
 end_year: 2024
 
 # Name of parameters file for all-nba model
-params_name: rand_search_xgb_full
+params_name: rand_search_xgb_v2
 
 # Name of learned all-nba model
-model_name: model_xgb_full
+model_name: model_xgb_v2
 
 # Number of iterations to search parameters in all-nba model
 n_iterations: 500
@@ -19,17 +19,17 @@ n_iterations: 500
 n_iterations_rook: 250
 
 # Name of parameters file for all-nba rookie model
-params_name_rook: rand_search_xgb_rook
+params_name_rook: rand_search_xgb_rook_v2
 
 # Name of learned all-nba rookie model
-model_name_rook: model_xgb_rook
+model_name_rook: model_xgb_rook_v2
 
-# List of columns to drop
+# List of columns to drop on beginning
 drop_cols:
   - Age
   - GS
 
-# Features list droping before training
+# Features list droping before training, you can find definition of shortcuts in data/desc_short.md
 drop_features:
   - ORB%
   - BLK
@@ -71,7 +71,7 @@ drop_features:
   - FTA
   - FG
 
-# Features list droping before training in rookie model
+# Features list droping before training in rookie model, you can find definition of shortcuts in data/desc_short.md
 drop_features_rook:
   - ORB%
   # - BLK
