@@ -6,3 +6,5 @@
 /dist
 /NBA_Awards_Predictor.egg-info
 /share
+pyvenv.cfg
+share/man/man1
