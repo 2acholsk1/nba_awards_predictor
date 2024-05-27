@@ -2,7 +2,7 @@
 """
 The MIT License (MIT)
 
-Copyright (C) 2024 PUT Rocketlab - All Rights Reserved
+Copyright (C) 2024 2acholsk1 - All Rights Reserved
 You may use, distribute and modify this code under the
 terms of the MIT license.
 You should have received a copy of the MIT license with
@@ -34,7 +34,7 @@ from setuptools import setup
 
 setup(
     name="NBA-Awards-Predictor",
-    version="v0.0.1",
+    version="v1.0.1",
     author="2acholsk1",
     license="MIT",
     packages=setuptools.find_packages(),
