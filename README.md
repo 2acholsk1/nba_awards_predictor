@@ -212,3 +212,7 @@ The script is used to generate a graph showing the importance of the features of
 ```bash
 data_feature_important_rookie
 ```
+
+## Bugs & Feature Requests
+
+Please report bugs and request features using the [Issue Tracker](https://github.com/2acholsk1/nba_awards_predictor/issues).
