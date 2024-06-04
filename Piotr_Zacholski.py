@@ -102,7 +102,7 @@ def main():
         "second rookie all-nba team": second_rookie_team['Player_Decoded'].tolist(),
     }
 
-    with open(prediction_path+'.json', 'w', encoding='utf-8') as f:
+    with open(prediction_path, 'w', encoding='utf-8') as f:
         json.dump(teams, f, indent=2)
 
 
