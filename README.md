@@ -9,6 +9,7 @@
 - [Results](#results)
 - [Data source](#data-source)
 - [Documentation](#documentation)
+- [Bugs & Feature Requests](#bugs--feature-requests)
 
 
 ## Main goal
