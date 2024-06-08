@@ -3,7 +3,6 @@
 ## Table of Contents
 - [Main goal](#main-goal)
 - [Installation](#installation)
-- [Data source](#data-source)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Making predictions](#making-predictions)
